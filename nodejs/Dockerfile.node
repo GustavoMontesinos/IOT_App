@@ -5,7 +5,7 @@ WORKDIR '/usr/app'
 COPY package.json .
 RUN npm install -g npm@latest
 RUN npm install 
-COPY index.js mariadb.js mqtt.js ./
+COPY *.js ./
 EXPOSE 8080
 # Tell the image what to do when it starts as a container 
 CMD ["npm", "start"]
