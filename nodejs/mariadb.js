@@ -19,7 +19,7 @@ exports.insert = (data, callback) => {
     let query = mysql.format(querySting, [data[0].value, data[1].value])
     db.query(query, (error, result) => {
         if (error) throw (error)
-        if(callback) callback(result)
+        if (callback) callback(result)
     })
 }
 
@@ -27,6 +27,6 @@ exports.select = (callback) => {
     let query = `SELECT * FROM (SELECT * FROM ${process.env.MARIADB_TABLE} ORDER BY id DESC LIMIT 4)Var1 ORDER BY id ASC;`
     db.query(query, (error, result) => {
         if (error) throw (error)
-        if(callback) callback(result)
+        if (callback) callback(result)
     })
 }
