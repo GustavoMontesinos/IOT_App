@@ -4,5 +4,5 @@ FROM mariadb:latest
 # add initial configuration
 ADD setup.sql /docker-entrypoint-initdb.d
 
-# Tell the image what to do when it starts as a container 
+# Tell the image what to do when it starts as a container
 CMD ["mysqld"]

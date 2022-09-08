@@ -1,11 +1,11 @@
 # Use an existing docker image as a base
 FROM node:latest
-# Download and install a dependency 
+# Download and install a dependency
 WORKDIR '/usr/app'
 COPY package.json .
 RUN npm install -g npm@latest
-RUN npm install 
+RUN npm install
 COPY *.js ./
 EXPOSE 8080
-# Tell the image what to do when it starts as a container 
+# Tell the image what to do when it starts as a container
 CMD ["npm", "start"]

@@ -1,45 +1,45 @@
 version: "3"
 services:
-  nodejs:
-    container_name: nodejs
-    build:
-      context: nodejs
-      dockerfile: Dockerfile.node
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./nodejs/public:/usr/app/public
-    env_file:
-      - ./nodejs/.env
-    depends_on:
-      - mqtt
-      - mariadb
-    networks: 
-      - my-net
-  mqtt:
-    container_name: mqtt
-    restart: always
-    build:
-      context: mqtt
-      dockerfile: Dockerfile.mqtt
-    ports:
-      - "1883:1883"
-    volumes:
-      - ./mqtt/config:/mosquitto/config
-      - ./mqtt/data:/mosquitto/data
-      - ./mqtt/log:/mosquitto/log
-    networks: 
-      - my-net
-  mariadb:
-    container_name: database
-    restart: always
-    build:
-      context: mariadb
-      dockerfile: Dockerfile.database
-    environment:
-      - MYSQL_ROOT_PASSWORD=11221
-    networks: 
-      - my-net
+    nodejs:
+        container_name: nodejs
+        build:
+            context: nodejs
+            dockerfile: Dockerfile.node
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./nodejs/public:/usr/app/public
+        env_file:
+            - ./nodejs/.env
+        depends_on:
+            - mqtt
+            - mariadb
+        networks:
+            - my-net
+    mqtt:
+        container_name: mqtt
+        restart: always
+        build:
+            context: mqtt
+            dockerfile: Dockerfile.mqtt
+        ports:
+            - "1883:1883"
+        volumes:
+            - ./mqtt/config:/mosquitto/config
+            - ./mqtt/data:/mosquitto/data
+            - ./mqtt/log:/mosquitto/log
+        networks:
+            - my-net
+    mariadb:
+        container_name: database
+        restart: always
+        build:
+            context: mariadb
+            dockerfile: Dockerfile.database
+        environment:
+            - MYSQL_ROOT_PASSWORD=11221
+        networks:
+            - my-net
 networks:
-  my-net:
-    driver: bridge
+    my-net:
+        driver: bridge

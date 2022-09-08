@@ -63,7 +63,7 @@ Como primer paso se necesita crear un archivo `package.json` al ejecutar el coma
  	}
 }
 ```
-          
+
 ### Servidor usando express
 
 Requerir la librería express:
@@ -90,7 +90,7 @@ Requerir la librería mqtt:
 ```js
 const mqtt = require('mqtt')
 ```
-Establecer el identificador MQTT y URL del Broker 
+Establecer el identificador MQTT y URL del Broker
 
 ```js
 const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
@@ -212,20 +212,20 @@ const db = require('./mariadb')
 const mqtt = require('./mqtt')
 require("dotenv").config()
 var counter
-  
+
 const app = express()
 app.set('port', process.env.SERVER_PORT)
 app.use(express.static(path.join(__dirname, 'public')))
-  
+
 const server = app.listen(app.get('port'), () => {
 	console.log('server on port', app.get('port'))
 })
-  
+
 const io = SocketIO(server)
 const socket_channel = io.on('connection', (socket) => {
 	console.log('New Connection', socket.id)
 })
-  
+
 mqtt.client.on('connect', () => {
 	console.log('Connected')
 	mqtt.client.subscribe([process.env.MQTT_TOPIC], () => {
@@ -249,7 +249,7 @@ mqtt.client.on('message', (topic, payload) => {
 ```js
 const mysql = require('mysql')
 require("dotenv").config()
- 
+
 const db = mysql.createConnection({
 	host: process.env.MARIADB_HOST,
 	port: process.env.MARIADB_PORT,
@@ -262,7 +262,7 @@ db.connect((error) => {
 	if (error) throw (error)
 	console.log("Connected to database")
 })
- 
+
 exports.insert = (data, callback) => {
 	let querySting = `INSERT INTO ${process.env.MARIADB_TABLE} (${data[0].id}, ${data[1].id}) VALUES (?, ?);`
 	let query = mysql.format(querySting, [data[0].value, data[1].value])
@@ -313,12 +313,12 @@ EXPOSE 8080
 # Tell the image what to do when it starts as a container
 CMD ["npm", "start"]
 ```
-          
-          
+
+
 
 ## Creación del contenedor MQTT
 
-Para la creación de este contenedor se utiliza la imagen base oficial de “eclipse-mosquitto” que en esta ocasión cumplirá el papel de broker. 
+Para la creación de este contenedor se utiliza la imagen base oficial de “eclipse-mosquitto” que en esta ocasión cumplirá el papel de broker.
 
 ``` Dockerfile
 # Use an existing docker image as a base_
@@ -363,7 +363,7 @@ CREATE TABLE
 		sensor_1 INT,
 		sensor_2 INT
 	);
-	
+
 INSERT INTO sensores
 	(sensor_1,sensor_2)
 VALUES
@@ -394,7 +394,7 @@ unsigned long lastMsg = 0;
 #define MSG_BUFFER_SIZE (200)
 #define DHT11_PIN D7
 #define pinJSK A0
-  
+
 DHT dht(DHT11_PIN, DHTTYPE);
 char json_msg[MSG_BUFFER_SIZE];
 
@@ -405,7 +405,7 @@ const int capacity = JSON_OBJECT_SIZE(200) + 2 * JSON_OBJECT_SIZE(200);
 StaticJsonDocument<capacity> doc;
 JsonObject Sensor_01 = doc.createNestedObject();
 JsonObject Sensor_02 = doc.createNestedObject();
-  
+
 void reconnect()
 {
 	while (!client.connected())
@@ -424,7 +424,7 @@ void reconnect()
 		}
 	}
 }
- 
+
 void setup(
 {
 	Serial.begin(115200);
@@ -496,7 +496,7 @@ services:
     depends_on:
       - mqtt
       - mariadb
-    networks: 
+    networks:
       - my-net
   mqtt:
     container_name: mqtt
@@ -510,7 +510,7 @@ services:
       - ./mqtt/config:/mosquitto/config
       - ./mqtt/data:/mosquitto/data
       - ./mqtt/log:/mosquitto/log
-    networks: 
+    networks:
       - my-net
   mariadb:
     container_name: database
@@ -520,7 +520,7 @@ services:
       dockerfile: Dockerfile.database
     environment:
       - MYSQL_ROOT_PASSWORD=11221
-    networks: 
+    networks:
       - my-net
 networks:
   my-net:
