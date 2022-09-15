@@ -91,7 +91,7 @@ const options_linear = {
 }
 
 function update(chart, chart2) {
-    socket.on('data_package', function (data) {
+    socket.on('data_package', (data) => {
         console.log(data)
         chart.option({ "value": data[0].value })
         chart2.option({ "value": data[1].value })
@@ -100,8 +100,10 @@ function update(chart, chart2) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const gaugeDev = new DevExpress.viz.dxCircularGauge(document.getElementById("widget"), options_circular);
-    const gaugeDev2 = new DevExpress.viz.dxLinearGauge(document.getElementById("widget2"), options_linear);
+document.addEventListener("DOMContentLoaded", () => {
+    w1 = document.getElementById("widget")
+    w1 = document.getElementById("widget2")
+    const gaugeDev = new DevExpress.viz.dxCircularGauge(w1, options_circular);
+    const gaugeDev2 = new DevExpress.viz.dxLinearGauge(w2, options_linear);
     update(gaugeDev, gaugeDev2)
 });
